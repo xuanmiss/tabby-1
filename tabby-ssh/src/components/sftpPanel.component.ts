@@ -24,6 +24,7 @@ export class SFTPPanelComponent {
     @Input() path = '/'
     @Output() pathChange = new EventEmitter<string>()
     pathSegments: PathSegment[] = []
+    sftpPath = '/'
 
     constructor (
         private platform: PlatformService,
@@ -47,6 +48,7 @@ export class SFTPPanelComponent {
         this.pathChange.next(this.path)
 
         let p = newPath
+        this.sftpPath = newPath
         this.pathSegments = []
         while (p !== '/') {
             this.pathSegments.unshift({
@@ -55,7 +57,6 @@ export class SFTPPanelComponent {
             })
             p = path.dirname(p)
         }
-
         this.fileList = null
         this.fileList = await this.sftp.readdir(this.path)
 
