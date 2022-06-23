@@ -14,6 +14,7 @@ yarn
 ./scripts/build-native.js
 ```
 
+
 ```
 # Linux (Debian/Ubuntu here as an example)
 sudo apt install libfontconfig-dev libsecret-1-dev libarchive-tools libnss3 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm1 cmake
@@ -33,6 +34,9 @@ Now, check if your build is working:
 ```
 yarn run build
 ```
+
+> 这里报错，TS2307: Cannot find module '@tabby-gang/node-pty' or its corresponding type declarations.
+> 更换yarn和npm源为taobao源之后，下载成功
 
 Start Tabby with
 

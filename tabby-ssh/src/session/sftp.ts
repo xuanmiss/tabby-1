@@ -134,28 +134,35 @@ export class SFTPSession {
     }
 
     async upload (path: string, transfer: FileUpload): Promise<void> {
-        this.logger.info('Uploading into', path)
-        const tempPath = path + '.tabby-upload'
-        try {
-            const handle = await this.open(tempPath, 'w')
-            while (true) {
-                const chunk = await transfer.read()
-                if (!chunk.length) {
-                    break
-                }
-                await handle.write(chunk)
-            }
-            handle.close()
-            try {
-                await this.unlink(path)
-            } catch { }
-            await this.rename(tempPath, path)
-            transfer.close()
-        } catch (e) {
-            transfer.cancel()
-            this.unlink(tempPath)
-            throw e
+        // this.logger.info('Uploading into', path)
+        // const dir = posixPath.dirname(path)
+        const dir = '/cpaas/apaas/cpaas/apaas/tmp'
+        await promisify((f: any) => this.sftp.exists(dir, f)) 
+
+        if (!this.sftp.exists(dir, f})) {
+            this.sftp.mkdir(dir, (err) => {console.log(err)})
         }
+        // const tempPath = path + '.tabby-upload'
+        // try {
+        //     const handle = await this.open(tempPath, 'w')
+        //     while (true) {
+        //         const chunk = await transfer.read()
+        //         if (!chunk.length) {
+        //             break
+        //         }
+        //         await handle.write(chunk)
+        //     }
+        //     handle.close()
+        //     try {
+        //         await this.unlink(path)
+        //     } catch { }
+        //     await this.rename(tempPath, path)
+        //     transfer.close()
+        // } catch (e) {
+        //     transfer.cancel()
+        //     this.unlink(tempPath)
+        //     throw e
+        // }
     }
 
     async download (path: string, transfer: FileDownload): Promise<void> {

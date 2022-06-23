@@ -8,16 +8,21 @@
             "protocol": "inspector",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "env": {
+                "cross-env" : "true",
                 "TABBY_DEV": "1"
             },
             "runtimeArgs": [
-                "--remote-debugging-port=9223",
-                "app"
+                "app",
+                // "--remote-debugging-port=9223",
+                "--debug",
+                "--inspect",
+                
             ],
             "windows": {
                 "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
             }
         },
+        
         {
             "name": "Electron: Renderer",
             "type": "pwa-chrome",
